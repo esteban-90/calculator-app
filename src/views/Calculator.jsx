@@ -1,10 +1,9 @@
 import { useContext } from 'react'
 import { ThemeContext } from 'styled-components'
-import KeyBoardEventHandler from 'react-keyboard-event-handler'
 
 import * as Styled from '@/components'
 import { useCalculator } from '@/hooks'
-import keys from '@/keys'
+import keyboard from '@/keyboard'
 
 export default function Calculator() {
   const { themeName, toggleTheme } = useContext(ThemeContext)
@@ -25,137 +24,121 @@ export default function Calculator() {
   } = useCalculator()
 
   return (
-    <>
-      <Styled.Background>
-        <Styled.Container>
-          <Styled.Screen>
-            <Styled.Previous>
-              {previous} {operation}
-            </Styled.Previous>
+    <Styled.Background>
+      <Styled.Container>
+        <Styled.Screen>
+          <Styled.Previous>
+            {previous} {operation}
+          </Styled.Previous>
 
-            <Styled.Current>{current}</Styled.Current>
-          </Styled.Screen>
+          <Styled.Current>{current}</Styled.Current>
+        </Styled.Screen>
 
+        <Styled.Button
+          btnAction
+          onClick={allClear}
+          value={keyboard['shift+backspace'].value}
+          title={keyboard['shift+backspace'].title}
+        />
+
+        <Styled.Button
+          btnAction
+          onClick={popValue}
+          value={keyboard.backspace.value}
+          title={keyboard.backspace.title}
+        />
+
+        <Styled.Button
+          btnAction
+          onClick={toggleSign}
+          value={keyboard['shift+minus'].value}
+          title={keyboard['shift+minus'].title}
+        />
+
+        <Styled.Button
+          btnAction
+          onClick={chooseOperation}
+          value={keyboard['/'].value}
+          title={keyboard['/'].title}
+        />
+
+        {['7', '8', '9'].map((number) => (
           <Styled.Button
-            btnAction
-            onClick={allClear}
-            value={keys['shift+backspace'].value}
-            title={keys['shift+backspace'].title}
-          />
-
-          <Styled.Button
-            btnAction
-            onClick={popValue}
-            value={keys.backspace.value}
-            title={keys.backspace.title}
-          />
-
-          <Styled.Button
-            btnAction
-            onClick={toggleSign}
-            value={keys['shift+minus'].value}
-            title={keys['shift+minus'].title}
-          />
-
-          <Styled.Button
-            btnAction
-            onClick={chooseOperation}
-            value={keys['/'].value}
-            title={keys['/'].title}
-          />
-
-          {['7', '8', '9'].map((number) => (
-            <Styled.Button
-              key={number}
-              onClick={pushValue}
-              value={keys[number].value}
-              title={keys[number].title}
-            />
-          ))}
-
-          <Styled.Button
-            btnAction
-            onClick={chooseOperation}
-            value={keys['*'].value}
-            title={keys['*'].title}
-          />
-
-          {['4', '5', '6'].map((number) => (
-            <Styled.Button
-              key={number}
-              onClick={pushValue}
-              value={keys[number].value}
-              title={keys[number].title}
-            />
-          ))}
-
-          <Styled.Button
-            btnAction
-            onClick={chooseOperation}
-            value={keys.plus.value}
-            title={keys.plus.title}
-          />
-
-          {['1', '2', '3'].map((number) => (
-            <Styled.Button
-              key={number}
-              onClick={pushValue}
-              value={keys[number].value}
-              title={keys[number].title}
-            />
-          ))}
-
-          <Styled.Button
-            btnAction
-            onClick={chooseOperation}
-            value={keys.minus.value}
-            title={keys.minus.title}
-          />
-
-          <Styled.Button
-            btnAction
+            key={number}
             onClick={pushValue}
-            bottomCorner='left'
-            value={keys['.'].value}
-            title={keys['.'].title}
+            value={keyboard[number].value}
+            title={keyboard[number].title}
           />
+        ))}
 
+        <Styled.Button
+          btnAction
+          onClick={chooseOperation}
+          value={keyboard['*'].value}
+          title={keyboard['*'].title}
+        />
+
+        {['4', '5', '6'].map((number) => (
           <Styled.Button
+            key={number}
             onClick={pushValue}
-            value={keys['0'].value}
-            title={keys['0'].title}
+            value={keyboard[number].value}
+            title={keyboard[number].title}
           />
+        ))}
 
+        <Styled.Button
+          btnAction
+          onClick={chooseOperation}
+          value={keyboard.plus.value}
+          title={keyboard.plus.title}
+        />
+
+        {['1', '2', '3'].map((number) => (
           <Styled.Button
-            btnAction
-            onClick={toggleTheme}
-            value={keys['shift+plus'].value(themeName)}
-            title={keys['shift+plus'].title}
+            key={number}
+            onClick={pushValue}
+            value={keyboard[number].value}
+            title={keyboard[number].title}
           />
+        ))}
 
-          <Styled.Button
-            btnAction
-            onClick={equals}
-            bottomCorner='right'
-            value={keys.enter.value}
-            title={keys.enter.title}
-          />
-        </Styled.Container>
-      </Styled.Background>
+        <Styled.Button
+          btnAction
+          onClick={chooseOperation}
+          value={keyboard.minus.value}
+          title={keyboard.minus.title}
+        />
 
-      <KeyBoardEventHandler
-        handleKeys={Object.keys(keys)}
-        onKeyEvent={(key) => {
-          const button = document.querySelector(`[title="${keys[key].title}"]`)
+        <Styled.Button
+          btnAction
+          onClick={pushValue}
+          bottomCorner='left'
+          value={keyboard['.'].value}
+          title={keyboard['.'].title}
+        />
 
-          console.log(button)
+        <Styled.Button
+          onClick={pushValue}
+          value={keyboard['0'].value}
+          title={keyboard['0'].title}
+        />
 
-          button.dispatchEvent(new MouseEvent('click', { bubbles: true }))
-          button.classList.add('clicked')
+        <Styled.Button
+          btnAction
+          onClick={toggleTheme}
+          value={keyboard['shift+plus'].value(themeName)}
+          title={keyboard['shift+plus'].title}
+        />
 
-          setTimeout(() => button.classList.remove('clicked'), 100)
-        }}
-      />
-    </>
+        <Styled.Button
+          btnAction
+          onClick={equals}
+          bottomCorner='right'
+          value={keyboard.enter.value}
+          title={keyboard.enter.title}
+        />
+      </Styled.Container>
+    </Styled.Background>
   )
 }

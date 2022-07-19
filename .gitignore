@@ -24,4 +24,4 @@ yarn-error.log*
 
 .env
 notes.txt
-yarn.lock
+*.lock

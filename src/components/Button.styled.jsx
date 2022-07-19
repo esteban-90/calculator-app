@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { touchScreensSizes } from '@/screens'
+import { touchScreensSizes } from '@/styles'
 
 const Button = styled.input.attrs({ type: 'button' })`
   cursor: pointer;

@@ -1,6 +1,6 @@
 import numeric from './numeric'
 import nonNumeric from './nonNumeric'
 
-const keys = { ...numeric, ...nonNumeric }
+const keyboard = { ...numeric, ...nonNumeric }
 
-export default keys
+export default keyboard

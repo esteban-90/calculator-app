@@ -4,7 +4,7 @@ export default function useTheme() {
   const day = 'day'
   const night = 'night'
 
-  const initialTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+  const initialTheme = matchMedia('(prefers-color-scheme: dark)').matches
     ? night
     : day
 

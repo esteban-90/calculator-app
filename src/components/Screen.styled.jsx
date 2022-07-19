@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { touchScreensSizes } from '@/screens'
+import { touchScreensSizes } from '@/styles'
 
 const Screen = styled.div`
   grid-column: 1 / -1;

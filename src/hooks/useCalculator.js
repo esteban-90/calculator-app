@@ -1,30 +1,31 @@
 import { useState } from 'react'
+import { compose, isInfinite, isInvalid, numberify, stringify } from '@/utils'
 
 export default function useCalculator() {
   const [previous, setPrevious] = useState('')
   const [current, setCurrent] = useState('')
   const [operation, setOperation] = useState('')
 
-  const pushValue = ({ target: { value: incomingValue } }) => {
-    const _current = String(current)
+  const pushValue = ({ target: { value } }) => {
+    const _current = stringify(current)
 
     if (
-      (incomingValue === '0' && _current === '0') ||
-      (incomingValue === '.' && _current.includes(incomingValue))
+      (value === '0' && _current === '0') ||
+      (value === '.' && _current.includes(value))
     )
       return
 
-    if (incomingValue === '.' && (!_current || _current === '0')) {
-      setCurrent('0' + incomingValue)
-    } else if (incomingValue !== '0' && _current === '0') {
-      setCurrent(incomingValue)
+    if (value === '.' && (!_current || _current === '0')) {
+      setCurrent('0' + value)
+    } else if (value !== '0' && _current === '0') {
+      setCurrent(value)
     } else {
-      setCurrent(current + incomingValue)
+      setCurrent(_current + value)
     }
   }
 
   const popValue = () => {
-    setCurrent(String(current).slice(0, -1))
+    setCurrent(stringify(current).slice(0, -1))
   }
 
   const allClear = () => {
@@ -34,10 +35,11 @@ export default function useCalculator() {
   }
 
   const chooseOperation = ({ target: { value } }) => {
-    if (/^$|^-?\d*\.$|^-$/.test(current)) return
+    if (isInvalid(current)) return
 
     if (previous) {
       const result = compute()
+
       setPrevious(result)
     } else {
       setPrevious(current)
@@ -50,24 +52,25 @@ export default function useCalculator() {
   const equals = () => {
     const result = compute()
 
-    if (!isFinite(result)) return
+    if (isInfinite(result)) return
 
-    setCurrent(result)
+    compose(setCurrent, stringify)(result)
     setPrevious('')
     setOperation('')
   }
 
   const toggleSign = () => {
-    if (/^$|^-?\d*\.$|^-$/.test(current)) return
-    setCurrent(-current)
+    if (isInvalid(current)) return
+
+    compose(setCurrent, stringify)(numberify(current) * -1)
   }
 
   const compute = () => {
     if (!current) return
 
-    let result
-    const previousNumber = Number(previous)
-    const currentNumber = Number(current)
+    let result = 0
+    const previousNumber = numberify(previous)
+    const currentNumber = numberify(current)
 
     switch (operation) {
       case '÷':

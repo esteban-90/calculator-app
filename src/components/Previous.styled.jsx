@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { touchScreensSizes } from '@/screens'
+import { touchScreensSizes } from '@/styles'
 
 const Previous = styled.div`
   color: rgba(255, 255, 255, 0.75);

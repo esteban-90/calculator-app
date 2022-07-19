@@ -2,7 +2,7 @@ import 'animate.css'
 import { createGlobalStyle } from 'styled-components'
 import { gothamRoundedMedium } from '@/fonts'
 
-const Global = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   *,
   *::before,
   *::after {
@@ -27,4 +27,4 @@ const Global = createGlobalStyle`
   }
 `
 
-export default Global
+export default GlobalStyle
