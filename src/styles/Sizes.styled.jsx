@@ -1,11 +1,11 @@
 import { css } from 'styled-components'
 
 const screenSizes = {
-  xxl: '90em', // 1400px
-  xl: '75em', // 1200px
-  lg: '62em', // 992px
-  md: '48em', // 768px
-  sm: '36em', // 576px
+  xxl: '90em', // 16px × 90 -> 1440px
+  xl: '75em', // 16px × 75 -> 1200px
+  lg: '62em', // 16px × 62 -> 992px
+  md: '48em', // 16px × 48 -> 768px
+  sm: '36em', // 16px × 36 -> 576px
 }
 
 export const nonTouchScreensSizes = ({

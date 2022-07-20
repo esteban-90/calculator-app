@@ -127,7 +127,7 @@ export default function Calculator() {
         <Styled.Button
           btnAction
           onClick={toggleTheme}
-          value={keyboard['shift+plus'].value(themeName)}
+          value={keyboard['shift+plus'].value?.(themeName)}
           title={keyboard['shift+plus'].title}
         />
 
